@@ -9,6 +9,19 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.css">
+
+<!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+
+
     <style type="text/css">
         #results { float:right; margin:20px; padding:20px; border:1px solid;}
     </style>
@@ -27,7 +40,11 @@
       <ul id="nav-mobile" class="side-nav">
         <li><a href="#">Navbar Link</a></li>
       </ul>
-     
+     <script type="text/javascript">
+       function redireccionarPagina() {
+  window.location = "index.html";
+}
+     </script>
     </div>
   </nav>
 
@@ -191,43 +208,22 @@ echo '
 
 }else{
 
+echo "<script language='javascript'>"; 
+echo "swal({
+  title: 'No se reconoció algun rostro',
+  imageUrl: 'data:image/jpeg;base64,".$imageData."',
+  type: 'error',
+  confirmButtonColor: '#3085d6',";
 
-echo '
 
- <div class="row">
-<div class="col s8 offset-s1">
+$s3->deleteMatchingObjects($config['s3']['bucket'],"uploads/{$final_name}");
 
-
-
-<div class="row">
-        <div class="col s12 m7">
-          <div class="card">
-            <div class="card-image">
-             <img class="materialboxed" data-caption="No se recoce ninguna cara" src="data:image/jpeg;base64,'.$imageData.'">
-              <span class="card-title">'.$id_img.'</span>
-            </div>
-            <div class="card-content">
-              <p>No se ha detectado ningún rostro.</p>
-            </div>
-            <div class="card-tabs">
-      <ul class="tabs tabs-fixed-width">
-        <li class="tab"><a class="active" href="#test4">Detección Facial</a></li>
-        <li class="tab"><a href="#test6">Etiquetas</a></li>
-      </ul>
-    </div>
-    <div class="card-content grey lighten-4">
-      <div id="test4">Confidencialidad de detección: 0% </div>
-      <div id="test6"><a href="Labels.json" target="_blank" >Etiquetas</a>
-      </div>
-    </div>
-          </div>
-        </div>
-      </div>
-            
-            
-      </div>
-       </div>
-';
+  echo "
+  confirmButtonText: 'intentar de nuevo!'
+}).then(function () {
+  redireccionarPagina();
+})"; 
+echo "</script>";
 
 }
 

@@ -9,6 +9,16 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.css">
+
+<!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+
+
 	<style type="text/css">
 		#results { float:right; margin:20px; padding:20px; border:1px solid;}
 	</style>
@@ -58,51 +68,78 @@
   });
      
 	</script>
-	<form id="myform" method="post" action="saveawsimage.php">
-
-   		<div class="input-field">
-            <input name="nombre_img" id="email" type="email" class="validate" required>
-            <label for="email" data-error="error" data-success="correcto">Email</label>
-          </div> 
-
-		 <br>
-		<input id="mydata" type="hidden" name="mydata" value=""/>
-	</form>
-
-
-<form>
-		<input class="btn waves-effect waves-light" type=button value="Subir imagen" onClick="take_snapshot1()">
-		 <br>
-		  <br>
-	</form>
-	<form>
-		<input class="btn waves-effect waves-light" type=button value="tomar foto" onClick="take_snapshot()">
-	</form>
+	
 	
 	<!-- Code to handle taking the snapshot and displaying it locally -->
 	<script language="JavaScript">
 		$(document).ready(function() {
     $('select').material_select();
   });
-		function take_snapshot() {
-			// take snapshot and get image data
-			Webcam.snap( function(data_uri) {
-				// display results in page
-				
-				document.getElementById('results').innerHTML = 
-					'<h2>Processing:</h2>';
-					
-				Webcam.upload( data_uri, 'saveimage.php', function(code, text) {
-					document.getElementById('results').innerHTML = 
-					'<img class="responsive-img"src="'+text+'"/>';
-				} );	
-			} );
-		}
 	</script>
 	
+<script type="text/javascript">
+	function validarEmail( email ) {
+    expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if ( !expr.test(email) )
+        {
+            
+            swal({
+  title: 'Error!',
+  text: 'Debe ingresar un correo electronico valido',
+  type: 'error',
+  confirmButtonText: 'Ok'
+})
+            return false;
+        }else{
+
+        	return true;
+
+        }
+    }
+
+</script>
+
+
+	<script type="text/javascript">
+    function validateForm()
+    {
+        var a=document.forms["Form"]["nombre_img"].value;
+        if (a==null || a=="")
+        {
+            
+            swal({
+  title: 'Error!',
+  text: 'Debe ingresar un correo electronico',
+  type: 'error',
+  confirmButtonText: 'Ok'
+})
+            return false;
+        }else{
+
+        	return true;
+
+        }
+    }
+
+
+</script>
 	<!-- Code to handle taking the snapshot and displaying it locally -->
 	<script language="JavaScript">
 		function take_snapshot1() {
+			if(validateForm()!=false && validarEmail(document.forms["Form"]["nombre_img"].value)!=false){
+				
+
+			swal({
+  title: 'Cargando',
+  text: 'Tu imagen se esta cargando',
+  onOpen: function () {
+    swal.showLoading()
+  }
+}).then(
+  function () {},
+  // handling the promise rejection
+
+)
 			// take snapshot and get image data
 			Webcam.snap( function(data_uri) {
 		var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
@@ -111,9 +148,49 @@
 		document.getElementById('myform').submit();
 	} );
 		}
+
+	}
+
 	</script>
       </div>
-      <div id="results" class="col s5 blue lighten-4 z-depth-4">tu imagen aparecerá aqui...</div>
+
+
+      <div class="col s1 ">
+      	 </div>
+
+
+      <div class="col s4 z-depth-4">
+
+		<form id="myform" name="Form" method="post" action="saveawsimage.php">
+
+   		<div class="input-field">
+            <input name="nombre_img" id="email" type="email" required>
+            <label for="email">Email</label>
+          
+
+  </div> 
+
+          <button class="btn waves-effect waves-light" type="button"  onClick="take_snapshot1()">Subir imagen
+    <i class="material-icons right">send</i>
+  </button>
+
+
+		 <br>
+		<input id="mydata" type="hidden" name="mydata" value=""/>
+		<br>
+		 
+	</form>
+
+
+
+
+
+
+      </div>
+
+
+      <div class="col s2 ">
+      	 </div>
 	</div>
 	
 
