@@ -122,8 +122,6 @@ $a=$face['FaceDetails'][0]['Confidence'];
 $b=json_encode($a);
 
 
-
-
 echo "<br>";
 $file='FaceDetails.json';
 file_put_contents($file, $d);
@@ -161,6 +159,14 @@ fclose($gestor);
 
 if(!is_null($a)){
 
+echo "<script language='javascript'>"; 
+echo "swal(
+  'Rostro detectado',
+  'A continiación se muestran los resultados',
+  'success'
+)"; 
+echo "</script>";
+
 
 echo '
 
@@ -170,10 +176,10 @@ echo '
 
 
 <div class="row">
-        <div class="col s12 m7">
+        <div class="col s6 m7">
           <div class="card">
             <div class="card-image">
-              <img class="materialboxed" data-caption="'.$b." %".'" src="data:image/jpeg;base64,'.$imageData.'">
+              <img id="my_image" class="materialboxed" data-caption="'.$b." %".'" src="data:image/jpeg;base64,'.$imageData.'">
               <span class="card-title">'.$id_img.'</span>
             </div>
             <div class="card-content">
@@ -188,7 +194,17 @@ echo '
     </div>
     <div class="card-content grey lighten-4">
       <div id="test4">Confidencialidad de detección: '.$b." %".'</div>
-      <div id="test5"><a href="FaceDetails.json" target="_blank" >Detalles faciales</a></div>
+      <div id="test5">
+      <div class="row">
+      <div class="col s4">
+      </div>
+      <div class="col s4">
+         <img id="df-img" class="materialboxed" data-caption="se muestran los landmarks" width="150" src="">
+      <a href="FaceDetails.json" target="_blank" >Detalles faciales</a></div>
+      </div>
+      <div class="col s4">
+      </div>
+    </div>
       <div id="test6"><a href="Labels.json" target="_blank" >Etiquetas</a></div>
     </div>
           </div>
@@ -197,17 +213,13 @@ echo '
             
             
       </div>
-       </div>
+      </div>
+      
 ';
 
 
-
-
-
-
-
 }else{
-
+unlink($tmp_file_path);
 echo "<script language='javascript'>"; 
 echo "swal({
   title: 'No se reconoció algun rostro',
@@ -227,23 +239,72 @@ echo "</script>";
 
 }
 
-
-
     } catch (S3Exception $e) {
     //die("There was an error uploading that file.");
     echo $e->getMessage() . "\n";
     }
  
+if(strlen($d)>2){
+
+echo '
+
+<canvas id="myCanvas" width="600" height="460" style="display:none">
+</canvas>
+<script>
+
+window.onload = function() {
+    var c=document.getElementById("myCanvas");
+    var ctx=c.getContext("2d");
+    var img=document.getElementById("my_image");
+    ctx.drawImage(img,0,0);
 
 
 
+// Red rectangle
+ctx.beginPath();
+ctx.lineWidth = "3";
+ctx.strokeStyle = "blue";
+ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][0]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][0]['Y']).'-5, 15, 10);
+ctx.stroke();
 
+// Red rectangle
+ctx.beginPath();
+ctx.lineWidth = "3";
+ctx.strokeStyle = "blue";
+ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][1]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][1]['Y']).'-5, 15, 10);
+ctx.stroke();
+
+// Red rectangle
+ctx.beginPath();
+ctx.lineWidth = "3";
+ctx.strokeStyle = "blue";
+ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][2]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][2]['Y']).'-5, 15, 10);
+ctx.stroke();
+
+// Red rectangle
+ctx.beginPath();
+ctx.lineWidth = "3";
+ctx.strokeStyle = "blue";
+ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][3]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][3]['Y']).'-5, 15, 10);
+ctx.stroke();
+
+// Red rectangle
+ctx.beginPath();
+ctx.lineWidth = "3";
+ctx.strokeStyle = "blue";
+ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][4]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][4]['Y']).'-5, 15, 10);
+ctx.stroke();
+
+var img = new Image();
+img.src = c.toDataURL();
+document.getElementById("df-img").src=img.src;
+
+};
+</script> 
+ ';
+
+}
 ?>
-
-
-
-
-
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
