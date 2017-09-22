@@ -47,7 +47,7 @@ $encoded_data = $_POST['mydata'];
 	$binary_data = base64_decode( $encoded_data );
 	
 	$id_img=  $_POST["nombre_img"];
-	$path="{$id_img}.jpg";
+	$path="saved_images/{$id_img}.jpg";
 	$result = file_put_contents( $path, $binary_data );
 	if (!$result) die("Could not save image!  Check file permissions.");
 
@@ -135,7 +135,7 @@ file_put_contents($file, $l);
 
 
 fclose($gestor);
-unlink($tmp_file_path);
+//unlink($tmp_file_path);
 
 
 
