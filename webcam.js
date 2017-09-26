@@ -666,7 +666,7 @@ var Webcam = {
 		if (!movie) this.dispatch('error', new FlashError("Cannot locate Flash movie in DOM"));
 		return movie;
 	},
-	
+
 	freeze: function() {
 		// show preview, freeze camera
 		var self = this;

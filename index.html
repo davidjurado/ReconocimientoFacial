@@ -1,209 +1,194 @@
-  <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Reconocimiento Facial</title>
-
-  <!-- CSS  -->
+  <title>Project Page</title>
+  <!--Let browser know website is optimized for mobile-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
+  <!--  Materialize Scripts-->
+  <!--  SweetAleert2-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.css">
+  <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <!-- First, include the Webcam.js JavaScript Library -->
+  <script type="text/javascript" src="webcam.js"></script>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.css">
-
-<!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-
-
-	<style type="text/css">
-		#results { float:right; margin:20px; padding:20px; border:1px solid;}
-	</style>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+  <script src="js/init.js"></script>
 </head>
 <body>
-  <nav class="navbar-fixed blue lighten-5" role="navigation">
-    <div class="nav-wrapper container ">
-
-
-
+  <!-- Nav Bar -->
+  <nav class="blue lighten-3" role="navigation">
+    <div class="nav-wrapper container">
+      <ul id="slide-out" class="side-nav">
+        <li><a href=".">Captura</a></li>
+        <li><a href="compare.html">Reconocimiento Facial</a></li>
+      </ul>
+      <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
       <a id="logo-container" href="." class="brand-logo">Captura</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#">Reconocimiento</a></li>
+        <li><a href="compare.html">Reconocimiento</a></li>
       </ul>
-
       <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Navbar Link</a></li>
+        <li><a href="compare.html">Reconocimiento</a></li>
       </ul>
-     
     </div>
   </nav>
-
   <div id="carga" class="progress" style="display:none">
-      <div  class="indeterminate"></div>
+    <div  class="indeterminate"></div>
   </div>
-
- <div class="row">
-      <div class="col s4 offset-s1">
-  
-	<div id="my_camera" class="hoverable"></div>
-	
-	<!-- First, include the Webcam.js JavaScript Library -->
-	<script type="text/javascript" src="webcam.js"></script>
-	
-	<!-- Configure a few settings and attach camera -->
-	<script language="JavaScript">
-		Webcam.set({
-			width: 600,
-			height: 460,
-			image_format: 'jpeg',
-			jpeg_quality: 100
-		});
-		Webcam.attach( '#my_camera' );
-	</script>
-	
-	<!-- A button for taking snaps -->
-	
-	<script type="text/javascript">
-		 $(document).ready(function(){
-    $('.materialboxed').materialbox();
-  });
-
-	</script>
-	
-	
-	<!-- Code to handle taking the snapshot and displaying it locally -->
-	<script language="JavaScript">
-		$(document).ready(function() {
-    $('select').material_select();
-  });
-	</script>
-	
-<script type="text/javascript">
-	function validarEmail( email ) {
-    expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if ( !expr.test(email) )
-        {
-            
-            swal({
-  title: 'Error!',
-  text: 'Debe ingresar un correo electronico valido',
-  type: 'error',
-  confirmButtonText: 'Ok'
-})
-            return false;
-        }else{
-
-        	return true;
-
-        }
-    }
-
-</script>
-
-
-	<script type="text/javascript">
-    function validateForm()
-    {
-        var a=document.forms["Form"]["nombre_img"].value;
-        if (a==null || a=="")
-        {
-            
-            swal({
-  title: 'Error!',
-  text: 'Debe ingresar un correo electronico',
-  type: 'error',
-  confirmButtonText: 'Ok'
-})
-            return false;
-        }else{
-
-        	return true;
-
-        }
-    }
-
-
-</script>
-	<!-- Code to handle taking the snapshot and displaying it locally -->
-	<script language="JavaScript">
-		function take_snapshot1() {
-			if(validateForm()!=false && validarEmail(document.forms["Form"]["nombre_img"].value)!=false){
-				
-        document.getElementById('carga').style.display = 'block';
-
-			swal({
-  title: 'Cargando',
-  text: 'Tu imagen se esta cargando',
-  onOpen: function () {
-    swal.showLoading()
-  }
-}).then(
-  function () {},
-  // handling the promise rejection
-
-)
-			// take snapshot and get image data
-			Webcam.snap( function(data_uri) {
-		var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
-		
-		document.getElementById('mydata').value = raw_image_data;
-		document.getElementById('myform').submit();
-	} );
-		}
-
-	}
-
-	</script>
+  <section>
+   <div class="carousel carousel-slider center" data-indicators="true">
+    <div class="carousel-fixed-item center">
+      <a href="#tcmodal" class="btn waves-effect white grey-text darken-text-2 tctrigger">Más información</a>
+    </div>
+    <div class="carousel-item red white-text" href="#one!">
+      <h2>Biometria facial</h2>
+      <p class="white-text">Sonrié y listo, basta con tomar una foto para que ingreses a la plataforma</p>
+    </div>
+    <div class="carousel-item amber white-text" href="#two!">
+      <h2>Bioemtria vocal</h2>
+      <p class="white-text">"Mi voz es mi contraseña" es la frase que dirás siempre que quieras autenticante sin necesidad de contraseñas</p>
+    </div>
+    <div class="carousel-item green white-text" href="#three!">
+      <h2>Autenticación mixta</h2>
+      <p class="white-text">Usando la combinación de metodos biometricos faciales y de voz, esposible aumentar el grado de seguridad con la autenticación mixta</p>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.carousel.carousel-slider').carousel({full_width: true});
+    });
+  </script>
+  <div class="row">
+    <div id="tcmodal" class="modal">
+      <div class="modal-content">
+        <h4>Rostro &amp; Voz</h4>
+        <p>La biometría facial y de voz actualmente  permiten una implementación sencilla, pues en cuanto a hardware se refiere tan solo se necesita una cámara y un micrófono respectivamente, encontramos estos componentes físicos en dispositivos móviles o computadores lo que no solo reduce costos sino que también aumenta su sencillez y usabilidad.</p>
+        <p>La biometría facial y de voz actualmente  permiten una implementación sencilla, pues en cuanto a hardware se refiere tan solo se necesita una cámara y un micrófono respectivamente, encontramos estos componentes físicos en dispositivos móviles o computadores lo que no solo reduce costos sino que también aumenta su sencillez y usabilidad.</p>
       </div>
-
-
-      <div class="col s1 ">
-      	 </div>
-
-
-      <div class="col s4 z-depth-4">
-
-		<form id="myform" name="Form" method="post" action="saveawsimage.php">
-
-   		<div class="input-field">
-            <input name="nombre_img" id="email" type="email" required onkeydown="if (event.keyCode == 13) return false" />
-            <label for="email">Email</label>
-          
-
-  </div> 
-
-          <button class="btn waves-effect waves-light" type="button"  onClick="take_snapshot1()">Subir imagen
-    <i class="material-icons right">send</i>
-  </button>
-
-
-		 <br>
-		<input id="mydata" type="hidden" name="mydata" value=""/>
-		<br>
-		 
-	</form>
-
-
-
-
-
-
+      <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a>
       </div>
-
-
-      <div class="col s2 ">
-      	 </div>
-	</div>
-	
-
-
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
-
+    </div>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.tctrigger').leanModal();
+    });
+  </script>
+</section>
+<section class="aboutContent">
+  <div class="container">
+    <h1 class="responsive center">Registro</h1>
+    <p>A continuación podrá registrar su huella facial con solo tomar una foto, para lograr esto es necesario que se habilite la camara y cuente con buen iluminación, recuerde no mover la cabeza a la hora de presionar el botón registrar y mantenga la cara de frente hacia la camara.</p>
+  </div>
+</section>
+<section class="inquiry">
+  <div class="container row">
+    <form id="myform" name="Form" method="post" action="saveawsimage.php">
+      <div class="row ">
+        <div class="col s12 m6">
+          <div id="my_camera" class="responsive-video">
+            <script language="JavaScript">
+              Webcam.set({
+                width: 300,
+                height: 230,
+                dest_width: 600,
+                dest_height: 460,
+                image_format: 'jpeg',
+                jpeg_quality: 100
+              });
+              Webcam.attach( '#my_camera' );
+            </script>
+          </div>
+        </div>
+        <div class="input-field col s12 m6">
+          <input name="nombre_img" id="email" type="email" required onkeydown="if (event.keyCode == 13) return false" />
+          <label for="email">Email</label>
+        </div>
+        <div class="col s12 m6">
+          <button class="btn red waves-effect waves-light" type="button"  onClick="take_snapshot1()">Registrar
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+      <input id="mydata" type="hidden" name="mydata" value=""/>
+    </form>
+  </div>
+</section>
+<footer class="page-footer blue lighten-3">
+  <div class="footer-copyright">
+    <div class="container">
+      &copy; Uis
+    </div>
+  </div>
+</footer>
 </body>
 </html>
+
+<script type="text/javascript">
+  function validarEmail( email ) {
+    expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if ( !expr.test(email) )
+    {
+      swal({
+        title: 'Error!',
+        text: 'Debe ingresar un correo electronico valido',
+        type: 'error',
+        confirmButtonText: 'Ok'
+      })
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+  }
+</script>
+<script type="text/javascript">
+  function validateForm()
+  {
+    var a=document.forms["Form"]["nombre_img"].value;
+    if (a==null || a=="")
+    {
+      swal({
+        title: 'Error!',
+        text: 'Debe ingresar un correo electronico',
+        type: 'error',
+        confirmButtonText: 'Ok'
+      })
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+  }
+</script>
+<script language="JavaScript">
+  function take_snapshot1() {
+    if(validateForm()!=false && validarEmail(document.forms["Form"]["nombre_img"].value)!=false){
+      document.getElementById('carga').style.display = 'block';
+      swal({
+        title: 'Cargando',
+        text: 'Tu imagen se esta cargando',
+        onOpen: function () {
+          swal.showLoading()
+        }
+      }).then(function () {},)
+      Webcam.snap( function(data_uri) {
+        var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
+        document.getElementById('mydata').value = raw_image_data;
+        document.getElementById('myform').submit();
+      } );
+    }
+  }
+</script>

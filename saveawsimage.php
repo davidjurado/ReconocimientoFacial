@@ -34,7 +34,7 @@
 
       <a id="logo-container" href="." class="brand-logo">Captura</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#">Reconocimiento</a></li>
+        <li><a href="compare.html">Reconocimiento</a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
@@ -60,7 +60,7 @@ use Aws\S3\Exception\S3Exception;
 //$filename =  time() . '.jpg';
 //$filepath = 'saved_images/';
 
-$encoded_data = $_POST['mydata'];
+  $encoded_data = $_POST['mydata'];
 	$binary_data = base64_decode( $encoded_data );
 	
 	$id_img=  $_POST["nombre_img"];
@@ -171,15 +171,12 @@ echo "</script>";
 echo '
 
  <div class="row">
-<div class="col s8 offset-s1">
-
-
-
-<div class="row">
-        <div class="col s6 m7">
+<div class="col s3">
+      </div>
+      <div class="col s6">
           <div class="card">
             <div class="card-image">
-              <img id="my_image" class="materialboxed" data-caption="'.$b." %".'" src="data:image/jpeg;base64,'.$imageData.'">
+              <img id="my_image" class="responsive-img materialboxed" data-caption="'.$b." %".'" src="data:image/jpeg;base64,'.$imageData.'">
               <span class="card-title">'.$id_img.'</span>
             </div>
             <div class="card-content">
@@ -193,19 +190,11 @@ echo '
       </ul>
     </div>
     <div class="card-content grey lighten-4">
-      <div id="test4">Confidencialidad de detección: '.$b." %".'</div>
-      <div id="test5">
-      <div class="row">
-      <div class="col s4">
-      </div>
-      <div class="col s4">
-         <img id="df-img" class="materialboxed" data-caption="se muestran los landmarks" width="150" src="">
+      <div class="center-align" id="test4">Confidencialidad de detección: '.$b." %".'</div>
+      <div class="center-align" id="test5">
+         <img id="df-img" class="responsive-img materialboxed" data-caption="se muestran los landmarks" width="150" src="">
       <a href="FaceDetails.json" target="_blank" >Detalles faciales</a></div>
-      </div>
-      <div class="col s4">
-      </div>
-    </div>
-      <div id="test6"><a href="Labels.json" target="_blank" >Etiquetas</a></div>
+      <div class="center-align" id="test6"><a href="Labels.json" target="_blank" >Etiquetas</a></div>
     </div>
           </div>
         </div>
@@ -225,7 +214,7 @@ echo "swal({
   title: 'No se reconoció algun rostro',
   imageUrl: 'data:image/jpeg;base64,".$imageData."',
   type: 'error',
-  confirmButtonColor: '#3085d6',";
+  confirmButtonColor: '#47A6AC',";
 
 
 $s3->deleteMatchingObjects($config['s3']['bucket'],"uploads/{$final_name}");

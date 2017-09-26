@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Project Page</title>
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
+	<!--  Materialize Scripts-->
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="js/materialize.js"></script>
+	<script src="js/init.js"></script>
+	<!--  SweetAleert2-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.css">
+	<!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+	<!-- First, include the Webcam.js JavaScript Library -->
+	<script type="text/javascript" src="webcam.js"></script>
+
+	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+</head>
+<body>
+	<!-- Nav Bar -->
+	<nav class="blue lighten-3" role="navigation">
+		<div class="nav-wrapper container">
+			<ul id="slide-out" class="side-nav">
+				<li><a href=".">Captura</a></li>
+				<li><a href="compare.html">Reconocimiento Facial</a></li>
+			</ul>
+			<a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+			<a id="logo-container" href="compare.html" class="brand-logo">Reconocimiento</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href=".">Captura</a></li>
+			</ul>
+			<ul id="nav-mobile" class="side-nav">
+				<li><a href=".">Captura</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div id="carga" class="progress" style="display:none">
+		<div  class="indeterminate"></div>
+  	</div>
+	<section class="aboutContent">
+		<div class="container">
+			<h1 class="responsive">Módulo</h1>
+			<p>A continuación podrá identificar su identidad con solo tomar una foto, para lograr esto es necesario que se haya registrado anteriormente con un correo y se haya detectado su rostro de forma satisfactoria. A continuación por favor ingrese su correo electronico y luego de click al botón "identificar".</p>
+		</div>
+	</section>
+	<section>
+		<div class="container row">
+			<div id="my_camera" class="responsive-video col s12">
+				<script language="JavaScript">
+					Webcam.set({
+						width: 300,
+						height: 230,
+						dest_width: 600,
+						dest_height: 460,
+						image_format: 'jpeg',
+						jpeg_quality: 100
+					});
+					Webcam.attach( '#my_camera' );
+				</script>
+			</div>
+		</div>
+	</section>
+	<section class="inquiry">
+		<div class="container row">
+			<form id="myform" name="Form" method="post" action="comparelogin.php">
+				<h2>Ingreso</h2>
+				<div class="row">
+					<div class="input-field col s12 m8">
+						<input name="nombre_img" id="email" type="email" required onkeydown="if (event.keyCode == 13) return false" />
+						<label for="email">Email</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12 m4">
+						<button class="btn red waves-effect waves-light" type="button"  onClick="take_snapshot1()">Ingresar
+							<i class="material-icons right">send</i>
+						</button>
+					</div>
+				</div>
+				<input id="mydata" type="hidden" name="mydata" value=""/>
+			</form>
+		</div>
+	</section>
+	<footer class="page-footer blue lighten-3">
+		<div class="footer-copyright">
+			<div class="container">
+				&copy; Uis
+			</div>
+		</div>
+	</footer>
+</body>
+</html>
+
+<script type="text/javascript">
+	function validarEmail( email ) {
+		expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			if ( !expr.test(email) )
+				{
+    				swal({
+    					title: 'Error!',
+    					text: 'Debe ingresar un correo electronico valido',
+    					type: 'error',
+    					confirmButtonText: 'Ok'
+    				})
+    				return false;
+    			}
+    			else
+    			{
+    				return true;
+    			}
+    		}
+</script>
+<script type="text/javascript">
+	function validateForm()
+	{
+		var a=document.forms["Form"]["nombre_img"].value;
+		if (a==null || a=="")
+		{
+			swal({
+				title: 'Error!',
+				text: 'Debe ingresar un correo electronico',
+				type: 'error',
+				confirmButtonText: 'Ok'
+			})
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+</script>
+<script language="JavaScript">
+	function take_snapshot1() {
+		if(validateForm()!=false && validarEmail(document.forms["Form"]["nombre_img"].value)!=false){
+			document.getElementById('carga').style.display = 'block';
+			swal({
+				title: 'Cargando',
+				text: 'Tu imagen se esta cargando',
+				onOpen: function () {
+					swal.showLoading()
+				}
+			}).then(function () {},)
+						Webcam.snap( function(data_uri) {
+							var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
+							document.getElementById('mydata').value = raw_image_data;
+							document.getElementById('myform').submit();
+						} );
+					}
+				}
+</script>
