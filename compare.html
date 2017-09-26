@@ -1,35 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Project Page</title>
-	<!--Let browser know website is optimized for mobile-->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-	<!-- Compiled and minified CSS -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
-	<!-- Compiled and minified JavaScript -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-	<link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
-	<!--  Materialize Scripts-->
-	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script src="js/materialize.js"></script>
-	<script src="js/init.js"></script>
-	<!--  SweetAleert2-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.css">
-	<!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-	<!-- First, include the Webcam.js JavaScript Library -->
-	<script type="text/javascript" src="webcam.js"></script>
-
-	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project Page</title>
+  <!--Let browser know website is optimized for mobile-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
+  <!--  Materialize Scripts-->
+  <!--  SweetAleert2-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.css">
+  <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <!-- First, include the Webcam.js JavaScript Library -->
+  <script type="text/javascript" src="webcam.js"></script>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+  <script src="js/init.js"></script>
 </head>
 <body>
-	<!-- Nav Bar -->
-	<nav class="blue lighten-3" role="navigation">
+	<div class="navbar-fixed">
+	<nav class="cyan lighten-3" role="navigation">
 		<div class="nav-wrapper container">
 			<ul id="slide-out" class="side-nav">
 				<li><a href=".">Captura</a></li>
@@ -45,12 +41,13 @@
 			</ul>
 		</div>
 	</nav>
+	</div>
 	<div id="carga" class="progress" style="display:none">
 		<div  class="indeterminate"></div>
   	</div>
 	<section class="aboutContent">
 		<div class="container">
-			<h1 class="responsive">Módulo</h1>
+			<h1 class="responsive center">Módulo</h1>
 			<p>A continuación podrá identificar su identidad con solo tomar una foto, para lograr esto es necesario que se haya registrado anteriormente con un correo y se haya detectado su rostro de forma satisfactoria. A continuación por favor ingrese su correo electronico y luego de click al botón "identificar".</p>
 		</div>
 	</section>
@@ -84,7 +81,7 @@
 				<div class="row">
 					<div class="col s12 m4">
 						<button class="btn red waves-effect waves-light" type="button"  onClick="take_snapshot1()">Ingresar
-							<i class="material-icons right">send</i>
+							<i class="material-icons right">photo_camera</i>
 						</button>
 					</div>
 				</div>
@@ -92,7 +89,7 @@
 			</form>
 		</div>
 	</section>
-	<footer class="page-footer blue lighten-3">
+	<footer class="page-footer cyan lighten-3">
 		<div class="footer-copyright">
 			<div class="container">
 				&copy; Uis
@@ -101,6 +98,7 @@
 	</footer>
 </body>
 </html>
+
 
 <script type="text/javascript">
 	function validarEmail( email ) {
