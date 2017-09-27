@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project Page</title>
+  <title>Reconocimiento</title>
   <!--Let browser know website is optimized for mobile-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Compiled and minified CSS -->
@@ -22,26 +22,30 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
   <script src="js/init.js"></script>
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
 </head>
 <body>
-	<div class="navbar-fixed">
-	<nav class="cyan lighten-3" role="navigation">
-		<div class="nav-wrapper container">
-			<ul id="slide-out" class="side-nav">
-				<li><a href=".">Captura</a></li>
-				<li><a href="compare.html">Reconocimiento Facial</a></li>
-			</ul>
-			<a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
-			<a id="logo-container" href="compare.html" class="brand-logo">Reconocimiento</a>
-			<ul class="right hide-on-med-and-down">
-				<li><a href=".">Captura</a></li>
-			</ul>
-			<ul id="nav-mobile" class="side-nav">
-				<li><a href=".">Captura</a></li>
-			</ul>
-		</div>
-	</nav>
-	</div>
+  <div class="navbar-fixed">
+    <nav class="white" role="navigation">
+      <div class="nav-wrapper container">
+        <ul id="slide-out" class="side-nav">
+          <li><a href=".">Home</a></li>
+          <li><a href="captura.html">Captura</a></li>
+          <li><a href="reconocimiento.html">Reconocimiento Facial</a></li>
+        </ul>
+        <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+        <a id="logo-container" href="." class="brand-logo">RF</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="captura.html">Captura</a></li>
+          <li class="active"><a href="reconocimiento.html">Reconocimiento</a></li>
+        </ul>
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="captura.html">Captura</a></li>
+          <li class="active"><a href="reconocimiento.html">Reconocimiento</a></li>
+        </ul>
+      </div>
+    </nav>
+    </div>
 	<div id="carga" class="progress" style="display:none">
 		<div  class="indeterminate"></div>
   	</div>
@@ -89,13 +93,38 @@
 			</form>
 		</div>
 	</section>
-	<footer class="page-footer cyan lighten-3">
-		<div class="footer-copyright">
-			<div class="container">
-				&copy; Uis
-			</div>
-		</div>
-	</footer>
+    <footer class="page-footer teal">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Sobre nosotros</h5>
+          <p class="grey-text text-lighten-4">Somos estudiantes de último semestre de ingeniería de sistemas de la universidad Industrial de Santander, actualmente estamos desarrollando nuestro proyecto orientado en métodos de autenticación biométrica.</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Desarrollado con</h5>
+          <ul>
+            <li><a class="white-text" href="https://aws.amazon.com/es/rekognition/">Amazon Rekognition</a></li>
+            <li><a class="white-text" href="http://materializecss.com/">Materializecss</a></li>
+            <li><a class="white-text" href="https://limonte.github.io/sweetalert2/">SweetAlert2</a></li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Repositorios</h5>
+          <ul>
+            <li><a class="github-button" href="https://github.com/davidjurado/ReconocimientoFacial" data-size="large" aria-label="Star davidjurado/ReconocimientoFacial on GitHub">ReconocimientoFacial</a></li>
+            <li><a class="github-button" href="https://github.com/julian1303/ReconocimientoVocal" data-size="large" aria-label="Star julian1303/ReconocimientoVocal on GitHub">ReconocimientoVocal</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      &copy;2017 Universidad Industrial de Santander
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
 

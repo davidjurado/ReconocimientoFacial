@@ -25,26 +25,29 @@
 </head>
 <body>
   <div class="navbar-fixed">
-  <nav class="cyan lighten-3" role="navigation">
-    <div class="nav-wrapper container">
-      <ul id="slide-out" class="side-nav">
-        <li><a href=".">Captura</a></li>
-        <li><a href="compare.html">Reconocimiento Facial</a></li>
-      </ul>
-      <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
-      <a id="logo-container" href="." class="brand-logo">Captura</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="compare.html">Reconocimiento</a></li>
-      </ul>
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="compare.html">Reconocimiento</a></li>
-      </ul>
+    <nav class="white" role="navigation">
+      <div class="nav-wrapper container">
+        <ul id="slide-out" class="side-nav">
+          <li><a href=".">Home</a></li>
+          <li><a href="captura.html">Captura</a></li>
+          <li><a href="reconocimiento.html">Reconocimiento Facial</a></li>
+        </ul>
+        <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+        <a id="logo-container" href="." class="brand-logo">RF</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="captura.html">Captura</a></li>
+          <li class="active"><a href="reconocimiento.html">Reconocimiento</a></li>
+        </ul>
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="captura.html">Captura</a></li>
+          <li class="active"><a href="reconocimiento.html">Reconocimiento</a></li>
+        </ul>
+      </div>
+    </nav>
     </div>
-  </nav>
-  </div>
   <script type="text/javascript">
     function redireccionarPagina() {
-      window.location = "compare.html";
+      window.location = "reconocimiento.html";
     }
   </script>
 
@@ -163,15 +166,37 @@ use Aws\S3\Exception\S3Exception;
                         $imageData2 = base64_encode(file_get_contents($url));
                         //echo '<img src="data:image/jpeg;base64,'.$imageData2.'">';
 
+  echo'
+        <script type="text/javascript">
+    
+var newsrc = "0";
+
+function changeImage() {
+  if ( newsrc == "0" ) {
+    document.getElementById("my_image").src = document.getElementById("df-img").src;
+    
+    newsrc  = "1";
+  }
+  else {
+   document.getElementById("my_image").src= "data:image/jpeg;base64,'.$imageData.'";
+   
+    newsrc  = "0";
+  }
+}
+  </script>';
+
+
                         echo '
       <section class="aboutContent">
         <div class="row">
-            <div class="card col s12 m6 l6">
+          <div class="col s12 m6 l6">
+            <div class="card">
                 <div class="card-image">
                     <img id="my_image" class="responsive-img materialboxed" data-caption="Se ha detectado un rostro con '.$bb." %".' de precisión" src="data:image/jpeg;base64,'.$imageData.'">
-                    <span class="card-title">Actual</span>
                 </div>
                 <div class="card-content">
+                <span class="card-title">Actual</span>
+                <a onClick="changeImage()" class="btn-floating btn-large halfway-fab waves-effect waves-light red right tooltipped" data-position="top" data-delay="50" data-tooltip="Landmarks"><i class="material-icons">mood</i></a>
                     <p>Rostro detectado exitosamente.</p>
                 </div>
                 <div class="card-tabs">
@@ -181,20 +206,23 @@ use Aws\S3\Exception\S3Exception;
                         <li class="tab"><a href="#test6">Etiquetas</a></li>
                     </ul>
                 </div>
-                <div class="card-content grey lighten-4">
+                <div class="card-content blue-grey lighten-4">
                     <div class="center-align" id="test4">Confidencialidad de detección del rostro: '.$bb." %".'</div>
                         <div class="center-align" id="test5">
-                            <img id="df-img" class="responsive-img materialboxed" data-caption="se muestran los landmarks" width="150" src="" style="margin: auto;position: relative;top:0;bottom:0;left:0;right:0;">
+                            <img style="display:none" id="df-img" class="responsive-img materialboxed" data-caption="se muestran los landmarks" width="150" src="" style="margin: auto;position: relative;top:0;bottom:0;left:0;right:0;">
                             <a href="FaceDetails.json" target="_blank" >Detalles faciales</a></div>
                     <div class="center-align" id="test6"><a href="Labels.json" target="_blank" >Etiquetas</a></div>
                 </div>
             </div>
-            <div class="card col s12 m6 l6">
+              </div>
+
+              <div class="col s12 m6 l6">
+            <div class="card">
                 <div class="card-image">
                     <img id="my_image2" class="responsive-img materialboxed" data-caption="Autenticación realizada con un '.$b." %".' de similitud entre las imagenes" src="data:image/jpeg;base64,'.$imageData2.'">
-                    <span class="card-title">Original: '.$id_img.'</span>
                 </div>
                 <div class="card-content">
+                <span class="card-title">Original: '.$id_img.'</span>
                     <p>Autenticación exitosa.</p>
                 </div>
                 <div class="card-tabs">
@@ -203,7 +231,7 @@ use Aws\S3\Exception\S3Exception;
                         <li class="tab"><a href="#test8">Detalles Faciales</a></li>
                     </ul>
                 </div>
-                <div class="card-content grey lighten-4">
+                <div class="card-content blue-grey lighten-4">
                     <div class="center-align" id="test7">Similitud para la Autenticación: '.$b." %".'</div>
                         <div class="center-align" id="test8">';
                             //<img id="df-img2" class="responsive-img materialboxed" data-caption="se muestran los landmarks" width="150" src="">
@@ -212,6 +240,8 @@ use Aws\S3\Exception\S3Exception;
                     </div>
                 </div>
             </div>
+ </div>
+
         </div>
       </section>     
       ';
@@ -228,35 +258,35 @@ use Aws\S3\Exception\S3Exception;
 //ojo1
       ctx.beginPath();
       ctx.lineWidth = "3";
-      ctx.strokeStyle = "blue";
+      ctx.strokeStyle = "#1565c0";
       ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][0]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][0]['Y']).'-5, 15, 10);
       ctx.stroke();
 
 //ojo2
       ctx.beginPath();
       ctx.lineWidth = "3";
-      ctx.strokeStyle = "blue";
+      ctx.strokeStyle = "#1565c0";
       ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][1]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][1]['Y']).'-5, 15, 10);
       ctx.stroke();
 
 //nariz
       ctx.beginPath();
       ctx.lineWidth = "3";
-      ctx.strokeStyle = "blue";
+      ctx.strokeStyle = "#1976d2";
       ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][2]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][2]['Y']).'-5, 15, 10);
       ctx.stroke();
 
 //boca1
       ctx.beginPath();
       ctx.lineWidth = "3";
-      ctx.strokeStyle = "blue";
+      ctx.strokeStyle = "#1e88e5";
       ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][3]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][3]['Y']).'-5, 15, 10);
       ctx.stroke();
 
 //boca2
       ctx.beginPath();
       ctx.lineWidth = "3";
-      ctx.strokeStyle = "blue";
+      ctx.strokeStyle = "#1e88e5";
       ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][4]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][4]['Y']).'-5, 15, 10);
       ctx.stroke();
 
@@ -328,5 +358,12 @@ use Aws\S3\Exception\S3Exception;
                 echo "</script>";
             }
             ?>
+    <footer class="page-footer teal">
+    <div class="footer-copyright">
+      <div class="container">
+      &copy;2017 Universidad Industrial de Santander
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

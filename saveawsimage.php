@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project Page</title>
+  <title>Resultados</title>
   <!--Let browser know website is optimized for mobile-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Compiled and minified CSS -->
@@ -24,37 +24,45 @@
   <script src="js/init.js"></script>
 </head>
 <body>
-  <div class="navbar-fixed">
-  <nav class="cyan lighten-3" role="navigation">
-    <div class="nav-wrapper container">
-      <ul id="slide-out" class="side-nav">
-        <li><a href=".">Captura</a></li>
-        <li><a href="compare.html">Reconocimiento Facial</a></li>
-      </ul>
-      <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
-      <a id="logo-container" href="." class="brand-logo">Captura</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="compare.html">Reconocimiento</a></li>
-      </ul>
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="compare.html">Reconocimiento</a></li>
-      </ul>
+ <div class="navbar-fixed">
+    <nav class="white" role="navigation">
+      <div class="nav-wrapper container">
+        <ul id="slide-out" class="side-nav">
+          <li><a href=".">Home</a></li>
+          <li><a href="captura.html">Captura</a></li>
+          <li><a href="reconocimiento.html">Reconocimiento Facial</a></li>
+        </ul>
+        <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+        <a id="logo-container" href="." class="brand-logo">RF</a>
+        <ul class="right hide-on-med-and-down">
+          <li class="active"><a href="captura.html">Captura</a></li>
+          <li><a href="reconocimiento.html">Reconocimiento</a></li>
+        </ul>
+        <ul id="nav-mobile" class="side-nav">
+          <li class="active"><a href="captura.html">Captura</a></li>
+          <li><a href="reconocimiento.html">Reconocimiento</a></li>
+        </ul>
+      </div>
+    </nav>
     </div>
-  </nav>
-  </div>
   <script type="text/javascript">
     function redireccionarPagina() {
-      window.location = "index.html";
+      window.location = "captura.html";
     }
   </script>
 
   <?php
   require './app/start.php';
   use Aws\S3\Exception\S3Exception;
-  $encoded_data = $_POST['mydata'];
-  $binary_data = base64_decode( $encoded_data );
   $id_img=  $_POST["nombre_img"];
   $path="saved_images/{$id_img}.jpg";
+
+  $response = $s3->doesObjectExist($config['s3']['bucket'], "uploads/{$path}");
+
+  if(!$response){
+
+      $encoded_data = $_POST['mydata'];
+  $binary_data = base64_decode( $encoded_data );
   $result = file_put_contents( $path, $binary_data );
   if (!$result) die("Could not save image!  Check file permissions.");
   $final_name=$path;
@@ -115,17 +123,40 @@
         'success'
       )"; 
       echo "</script>";
+
+  echo'
+        <script type="text/javascript">
+    
+var newsrc = "0";
+
+function changeImage() {
+  if ( newsrc == "0" ) {
+    document.getElementById("my_image").src = document.getElementById("df-img").src;
+    
+    newsrc  = "1";
+  }
+  else {
+   document.getElementById("my_image").src= "data:image/jpeg;base64,'.$imageData.'";
+   
+    newsrc  = "0";
+  }
+}
+  </script>';
+
+
       echo '
       <section class="aboutContent">
         <div class="container row">
           <div class="col s12 m2 l2">
           </div>
-          <div class="card col s12 m6 l8">
+           <div class="col s12 m6 l8">
+          <div class="card">
             <div class="card-image">
-              <img id="my_image" class="responsive-img materialboxed" data-caption="'.$b." %".'" src="data:image/jpeg;base64,'.$imageData.'">
-              <span class="card-title">'.$id_img.'</span>
+              <img id="my_image" class="responsive-img materialboxed" data-caption="'.$b." %".' de precisión" src="data:image/jpeg;base64,'.$imageData.'">
             </div>
             <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">'.$id_img.'</span>
+<a onClick="changeImage()" class="btn-floating btn-large halfway-fab waves-effect waves-light red right tooltipped" data-position="top" data-delay="50" data-tooltip="Landmarks"><i class="material-icons">mood</i></a>
               <p>Rostro detectado exitosamente.</p>
             </div>
             <div class="card-tabs">
@@ -135,16 +166,17 @@
                 <li class="tab"><a href="#test6">Etiquetas</a></li>
               </ul>
             </div>
-            <div class="card-content grey lighten-4">
+            <div class="card-content blue-grey lighten-4">
               <div class="center-align" id="test4">Confidencialidad de detección: '.$b." %".'</div>
                 <div class="center-align" id="test5">
-                  <img id="df-img" class="responsive-img materialboxed" data-caption="se muestran los landmarks" width="150" src="" style="margin: auto;position: relative;top:0;bottom:0;left:0;right:0;">
+                  <img style="display:none" id="df-img" class="responsive-img materialboxed" data-caption="se muestran los landmarks" width="150" src="" style="margin: auto;position: relative;top:0;bottom:0;left:0;right:0;">
                   <a href="FaceDetails.json" target="_blank" >Detalles faciales</a></div>
                 <div class="center-align" id="test6"><a href="Labels.json" target="_blank" >Etiquetas</a></div>
               </div>
             </div>
           </div>
-        </div>     
+        </div> 
+         </div>    
       </section>     
       ';
     }
@@ -184,35 +216,35 @@
 //ojo1
       ctx.beginPath();
       ctx.lineWidth = "3";
-      ctx.strokeStyle = "blue";
+      ctx.strokeStyle = "#1565c0";
       ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][0]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][0]['Y']).'-5, 15, 10);
       ctx.stroke();
 
 //ojo2
       ctx.beginPath();
       ctx.lineWidth = "3";
-      ctx.strokeStyle = "blue";
+      ctx.strokeStyle = "#1565c0";
       ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][1]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][1]['Y']).'-5, 15, 10);
       ctx.stroke();
 
 //nariz
       ctx.beginPath();
       ctx.lineWidth = "3";
-      ctx.strokeStyle = "blue";
+      ctx.strokeStyle = "#1976d2";
       ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][2]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][2]['Y']).'-5, 15, 10);
       ctx.stroke();
 
 //boca1
       ctx.beginPath();
       ctx.lineWidth = "3";
-      ctx.strokeStyle = "blue";
+      ctx.strokeStyle = "#1e88e5";
       ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][3]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][3]['Y']).'-5, 15, 10);
       ctx.stroke();
 
 //boca2
       ctx.beginPath();
       ctx.lineWidth = "3";
-      ctx.strokeStyle = "blue";
+      ctx.strokeStyle = "#1e88e5";
       ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][4]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][4]['Y']).'-5, 15, 10);
       ctx.stroke();
 
@@ -222,8 +254,32 @@
     };
     </script> 
     ';
+    }
+  
+  }
+  else{
+
+     echo "<script language='javascript'>"; 
+                echo "swal({
+                    title: 'Ha ocurrido un error',
+                    text: 'El correo ingresado ya se encuentra registrado',
+                    type: 'error',
+                    confirmButtonColor: '#47A6AC',";
+                    echo "
+                    confirmButtonText: 'intentar de nuevo!',
+                    allowOutsideClick: false
+                }).then(function () {
+                    redireccionarPagina();
+                })"; 
+                echo "</script>";
   }
   ?>
-
+    <footer class="page-footer teal">
+    <div class="footer-copyright">
+      <div class="container">
+      &copy;2017 Universidad Industrial de Santander
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
