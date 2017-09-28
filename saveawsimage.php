@@ -89,8 +89,9 @@
       ],
     ]);
     $c=$face['FaceDetails'];
+    $caras=count($c);
     $d=json_encode($c);
-    if(strlen($d)>2)
+    if($caras==1)
     {
       $a=$face['FaceDetails'][0]['Confidence'];
     }
@@ -99,7 +100,6 @@
       $a=null;
     }
     $b=json_encode($a);
-    echo "<br>";
     $file='FaceDetails.json';
     file_put_contents($file, $d);
     $labels = $rek->detectLabels([
@@ -114,7 +114,7 @@
     $file='Labels.json';
     file_put_contents($file, $l);
     fclose($gestor);
-    if(!is_null($a))
+    if($caras==1)
     {
       echo "<script language='javascript'>"; 
       echo "swal(
@@ -183,7 +183,26 @@ function changeImage() {
     else
     {
       unlink($path);
-      echo "<script language='javascript'>"; 
+      if($caras>1)
+      {
+        echo "<script language='javascript'>"; 
+      echo "swal({
+        title: 'Hay más de un rostro',
+        imageUrl: 'data:image/jpeg;base64,".$imageData."',
+        type: 'error',
+        confirmButtonColor: '#47A6AC',";
+        $s3->deleteMatchingObjects($config['s3']['bucket'],"uploads/{$final_name}");
+        echo "
+        confirmButtonText: 'intentar de nuevo!',
+        allowOutsideClick: false
+      }).then(function () {
+        redireccionarPagina();
+      })"; 
+      echo "</script>";
+      }
+      else
+      {
+       echo "<script language='javascript'>"; 
       echo "swal({
         title: 'No se reconoció algun rostro',
         imageUrl: 'data:image/jpeg;base64,".$imageData."',
@@ -197,12 +216,13 @@ function changeImage() {
         redireccionarPagina();
       })"; 
       echo "</script>";
+      }
     }
   }
   catch (S3Exception $e) {
     echo $e->getMessage() . "\n";
   }
-  if(strlen($d)>2)
+  if($caras==1)
   {
     echo '
     <canvas id="myCanvas" width="600" height="460" style="display:none">

@@ -65,6 +65,13 @@ $face=$rek->detectFaces([
 
 $c=$face['FaceDetails'];
 $d=json_encode($c);
+
+
+echo "count json ";
+$caras=count($c);
+echo $caras;
+echo "<br>";
+
 if(strlen($d)>2){
 $a=$face['FaceDetails'][0]['Confidence'];
 }else{
@@ -75,11 +82,16 @@ $b=json_encode($a);
 
 echo "<br>";
 
-if(!is_null($a)){
+if($caras==1){
 echo "Confidencialidad FaceDetection: ";
 echo $b." %";
 }else{
-echo "No se detectó algún rostro";
+  if($caras>1){
+    echo "hay mas de una cara";
+  }else{
+    echo "No se detectó algún rostro";
+  }
+
 }
 
 

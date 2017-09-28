@@ -92,8 +92,9 @@ use Aws\S3\Exception\S3Exception;
                 ],
             ]);
             $cc=$face['FaceDetails'];
+            $caras=count($cc);
             $dd=json_encode($cc);
-            if(strlen($dd)>2)
+            if($caras==1)
             {
                 $fa=$face['FaceDetails'][0]['Confidence'];
             }else
@@ -101,7 +102,7 @@ use Aws\S3\Exception\S3Exception;
                 $fa=null;
             }
             $bb=json_encode($fa);
-            if(!is_null($fa))
+            if($caras==1)
             {
                 $comparation = $rek->compareFaces([
                     'SourceImage' => [
@@ -318,7 +319,25 @@ function changeImage() {
                 }
                 else
                 {
-                    $imageData = base64_encode(file_get_contents($enlace));
+                  $imageData = base64_encode(file_get_contents($enlace));
+                  if($caras>1)
+                  {
+                     echo "<script language='javascript'>"; 
+                    echo "swal({
+                        title: 'Se ha reconocido más de un rostro',
+                        imageUrl: 'data:image/jpeg;base64,".$imageData."',
+                        type: 'error',
+                        confirmButtonColor: '#47A6AC',";
+                        echo "
+                        confirmButtonText: 'intentar de nuevo!',
+                        allowOutsideClick: false
+                    }).then(function () {
+                        redireccionarPagina();
+                    })"; 
+                    echo "</script>";
+                  }
+                  else
+                  {
                     echo "<script language='javascript'>"; 
                     echo "swal({
                         title: 'No se reconoció algun rostro',
@@ -332,6 +351,7 @@ function changeImage() {
                         redireccionarPagina();
                     })"; 
                     echo "</script>";
+                  }
                 }
                 fclose($gestor);
                 unlink($tmp_file_path);
