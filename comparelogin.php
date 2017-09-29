@@ -132,16 +132,6 @@ use Aws\S3\Exception\S3Exception;
                                             $validarpose=true;
                                           }
                                           break;
-                          case "i-izquierda":
-                                          if($face['FaceDetails'][0]['Pose']['Roll']>=20){
-                                            $validarpose=true;
-                                          }
-                                          break;
-                          case "i-derecha":
-                                           if($face['FaceDetails'][0]['Pose']['Roll']<=-20){
-                                            $validarpose=true;
-                                          }
-                                          break;
                           }
 
                   
@@ -166,6 +156,7 @@ use Aws\S3\Exception\S3Exception;
                                         if(strlen($d)>2)
                                             {
                                                 $a=$comparation['FaceMatches'][0]['Similarity'];
+                                                 $msg="";
                                             }
                                             else
                                             {
@@ -178,11 +169,6 @@ use Aws\S3\Exception\S3Exception;
                               $posemsg= "pose mal realizada";
                               $a=null;
                           }
-
-                          if(!is_null($a)){
-                            $msg="";
-                          }
-
                   
                     if(!is_null($a) && $validarpose)
                     {
