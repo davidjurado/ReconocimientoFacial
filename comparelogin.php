@@ -112,12 +112,12 @@ use Aws\S3\Exception\S3Exception;
                         $validarpose=false;
                       
                         switch ($pose) {
-                          case "izquierda":
+                          case "derecha":
                                           if($face['FaceDetails'][0]['Pose']['Yaw']>=30){
                                             $validarpose=true;
                                           }
                                           break;
-                          case "derecha":
+                          case "izquierda":
                                           if($face['FaceDetails'][0]['Pose']['Yaw']<=-30){
                                             $validarpose=true;
                                           }

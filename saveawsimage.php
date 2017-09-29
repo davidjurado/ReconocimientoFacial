@@ -191,7 +191,7 @@ function changeImage() {
         unlink($path);
         echo "<script language='javascript'>"; 
         echo "swal({
-        title: 'Es rostro no está centrado',
+        title: 'El rostro no está centrado',
         imageUrl: 'data:image/jpeg;base64,".$imageData."',
         type: 'error',
         confirmButtonColor: '#47A6AC',";
