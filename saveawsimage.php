@@ -162,7 +162,7 @@ function changeImage() {
             </div>
             <div class="card-content">
             <span class="card-title activator grey-text text-darken-4">'.$id_img.'</span>
-<a onClick="changeImage()" class="btn-floating btn-large halfway-fab waves-effect waves-light red right tooltipped" data-position="top" data-delay="50" data-tooltip="Landmarks"><i class="material-icons">mood</i></a>
+<a onClick="changeImage()" class="btn-floating btn-large halfway-fab waves-effect waves-light red right tooltipped" data-position="top" data-delay="50" data-tooltip="Marcadores"><i class="material-icons">mood</i></a>
               <p>Rostro detectado exitosamente.</p>
             </div>
             <div class="card-tabs">
@@ -266,36 +266,45 @@ function changeImage() {
       ctx.beginPath();
       ctx.lineWidth = "3";
       ctx.strokeStyle = "#1565c0";
-      ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][0]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][0]['Y']).'-5, 15, 10);
+      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][0]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][0]['Y']).', 5, 0, 2 * Math.PI);
       ctx.stroke();
 
 //ojo2
       ctx.beginPath();
       ctx.lineWidth = "3";
       ctx.strokeStyle = "#1565c0";
-      ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][1]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][1]['Y']).'-5, 15, 10);
+      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][1]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][1]['Y']).', 5, 0, 2 * Math.PI);
       ctx.stroke();
 
 //nariz
       ctx.beginPath();
       ctx.lineWidth = "3";
       ctx.strokeStyle = "#1976d2";
-      ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][2]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][2]['Y']).'-5, 15, 10);
+      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][2]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][2]['Y']).', 5, 0, 2 * Math.PI);
       ctx.stroke();
 
 //boca1
       ctx.beginPath();
       ctx.lineWidth = "3";
       ctx.strokeStyle = "#1e88e5";
-      ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][3]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][3]['Y']).'-5, 15, 10);
+      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][3]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][3]['Y']).', 5, 0, 2 * Math.PI);
       ctx.stroke();
 
 //boca2
       ctx.beginPath();
       ctx.lineWidth = "3";
       ctx.strokeStyle = "#1e88e5";
-      ctx.rect(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][4]['X']).'-5, 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][4]['Y']).'-5, 15, 10);
+      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][4]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][4]['Y']).', 5, 0, 2 * Math.PI);
       ctx.stroke();
+
+//caja
+      ctx.beginPath();
+      ctx.lineWidth = "3";
+      ctx.strokeStyle = "#ef5350";
+      ctx.rect(600*'.json_encode($face['FaceDetails'][0]['BoundingBox']['Left']).', 460*'.json_encode($face['FaceDetails'][0]['BoundingBox']['Top']).'-5, 600*'.json_encode($face['FaceDetails'][0]['BoundingBox']['Width']).', 460*'.json_encode($face['FaceDetails'][0]['BoundingBox']['Height']).');
+      ctx.stroke();
+
+
 
       var img = new Image();
       img.src = c.toDataURL();
