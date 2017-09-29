@@ -52,7 +52,7 @@
 	<section class="aboutContent">
 		<div class="container">
 			<h1 class="responsive center">Módulo</h1>
-			<p>A continuación podrá identificar su identidad con solo tomar una foto, para lograr esto es necesario que se haya registrado anteriormente con un correo y se haya detectado su rostro de forma satisfactoria. A continuación por favor ingrese su correo electronico y luego de click al botón "identificar".</p>
+			<p>A continuación podrá identificar su identidad con solo tomar una foto, para lograr esto es necesario que se haya registrado anteriormente con un correo y se haya detectado su rostro de forma satisfactoria. A continuación por favor ingrese su correo electronico, luego seleccione una pose con la cual se va a tomar la foto y por ultimo de click al botón "ingresar".</p>
 		</div>
 	</section>
 	<section>
@@ -77,11 +77,24 @@
 			<form id="myform" name="Form" method="post" action="comparelogin.php">
 				<h2>Ingreso</h2>
 				<div class="row">
-					<div class="input-field col s12 m8">
+					<div class="input-field col s12 m6 l6">
 						<input name="nombre_img" id="email" type="email" required onkeydown="if (event.keyCode == 13) return false" />
 						<label for="email">Email</label>
 					</div>
+          <div class="input-field col s12 m6 l6">
+                <select id="pose" name="pose">
+                    <option value="" disabled selected>Elije una pose</option>
+                    <option value="izquierda">Mirar a la izquierda</option>
+                    <option value="derecha">Mirar a la derecha</option>
+                    <option value="arriba">Mirar arriba</option>
+                    <option value="abajo">Mirar abajo</option>
+                    <option value="i-izquierda">Inclinación izquierda</option>
+                    <option value="i-derecha">inclinación derecha</option>
+                </select>
+                <label>Pose</label>
+            </div>
 				</div>
+        <section>
 				<div class="row">
 					<div class="col s12 m4">
 						<button class="btn red waves-effect waves-light" type="button"  onClick="take_snapshot1()">Ingresar
@@ -89,6 +102,7 @@
 						</button>
 					</div>
 				</div>
+        </section>
 				<input id="mydata" type="hidden" name="mydata" value=""/>
 			</form>
 		</div>
@@ -128,7 +142,11 @@
 </body>
 </html>
 
-
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+</script>
 <script type="text/javascript">
 	function validarEmail( email ) {
 		expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -152,11 +170,12 @@
 	function validateForm()
 	{
 		var a=document.forms["Form"]["nombre_img"].value;
-		if (a==null || a=="")
+    var b=document.forms["Form"]["pose"].value;
+		if (a==null || a=="" || b=="")
 		{
 			swal({
 				title: 'Error!',
-				text: 'Debe ingresar un correo electronico',
+				text: 'Debe ingresar todos los campos',
 				type: 'error',
 				confirmButtonText: 'Ok'
 			})
@@ -171,10 +190,13 @@
 <script language="JavaScript">
 	function take_snapshot1() {
 		if(validateForm()!=false && validarEmail(document.forms["Form"]["nombre_img"].value)!=false){
+      var audio = new Audio('media/camera.wav');
+      audio.play();
 			document.getElementById('carga').style.display = 'block';
 			swal({
 				title: 'Cargando',
 				text: 'Tu imagen se esta cargando',
+        allowOutsideClick: false,
 				onOpen: function () {
 					swal.showLoading()
 				}

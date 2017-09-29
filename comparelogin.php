@@ -55,6 +55,7 @@
 require './app/start.php';
 use Aws\S3\Exception\S3Exception;
     $id_img=  $_POST["nombre_img"];
+    $pose=$_POST["pose"];
     $id_target="saved_images/{$id_img}.jpg";
     $response = $s3->doesObjectExist($config['s3']['bucket'], "uploads/{$id_target}");
     if($response)
@@ -102,34 +103,88 @@ use Aws\S3\Exception\S3Exception;
                 $fa=null;
             }
             $bb=json_encode($fa);
+
+            $posemsg="";
+            $msg="La imagen no corresponde a la misma persona";
             if($caras==1)
             {
-                $comparation = $rek->compareFaces([
-                    'SourceImage' => [
-                        'S3Object' => [
-                            'Bucket' => $config['s3']['bucket'],
-                            'Name' => "uploads/{$path}",
-                        ],
-                    ],
-                    'TargetImage' => [
-                        'S3Object' => [
-                            'Bucket' => $config['s3']['bucket'],
-                            'Name' => "uploads/{$id_target}",
-                        ],
-                    ],
-                ]);
-                $c=$comparation['FaceMatches'];
-                $d=json_encode($c);
-                if(strlen($d)>2)
-                    {
-                        $a=$comparation['FaceMatches'][0]['Similarity'];
-                    }
-                    else
-                    {
-                        $a=null;
-                    }
-                    $b=json_encode($a);
-                    if(!is_null($a))
+
+                        $validarpose=false;
+                      
+                        switch ($pose) {
+                          case "izquierda":
+                                          if($face['FaceDetails'][0]['Pose']['Yaw']>=30){
+                                            $validarpose=true;
+                                          }
+                                          break;
+                          case "derecha":
+                                          if($face['FaceDetails'][0]['Pose']['Yaw']<=-30){
+                                            $validarpose=true;
+                                          }
+                                          break;
+                          case "arriba":
+                                          if($face['FaceDetails'][0]['Pose']['Pitch']>=20){
+                                            $validarpose=true;
+                                          }
+                                          break;
+                          case "abajo":
+                                          if($face['FaceDetails'][0]['Pose']['Pitch']<=-20){
+                                            $validarpose=true;
+                                          }
+                                          break;
+                          case "i-izquierda":
+                                          if($face['FaceDetails'][0]['Pose']['Roll']>=20){
+                                            $validarpose=true;
+                                          }
+                                          break;
+                          case "i-derecha":
+                                           if($face['FaceDetails'][0]['Pose']['Roll']<=-20){
+                                            $validarpose=true;
+                                          }
+                                          break;
+                          }
+
+                  
+
+                          if($validarpose){
+                                            $comparation = $rek->compareFaces([
+                                            'SourceImage' => [
+                                                'S3Object' => [
+                                                    'Bucket' => $config['s3']['bucket'],
+                                                    'Name' => "uploads/{$path}",
+                                                ],
+                                            ],
+                                            'TargetImage' => [
+                                                'S3Object' => [
+                                                    'Bucket' => $config['s3']['bucket'],
+                                                    'Name' => "uploads/{$id_target}",
+                                                ],
+                                            ],
+                                        ]);
+                                        $c=$comparation['FaceMatches'];
+                                        $d=json_encode($c);
+                                        if(strlen($d)>2)
+                                            {
+                                                $a=$comparation['FaceMatches'][0]['Similarity'];
+                                            }
+                                            else
+                                            {
+                                                $a=null;
+                                            }
+
+                                              $b=json_encode($a);
+
+                          }else{
+                              $posemsg= "pose mal realizada";
+                              $a=null;
+                          }
+
+                          if(!is_null($a)){
+                            $msg="";
+                          }
+
+                  
+                    if(!is_null($a) && $validarpose)
                     {
                         echo "<script language='javascript'>"; 
                         echo "swal(
@@ -304,7 +359,8 @@ function changeImage() {
                         $imageData = base64_encode(file_get_contents($enlace));
                         echo "<script language='javascript'>"; 
                         echo "swal({
-                            title: 'La imagen no corresponde a la misma persona',
+                            title: '".$msg."',
+                            text: '".$posemsg."',
                             imageUrl: 'data:image/jpeg;base64,".$imageData."',
                             type: 'error',
                             confirmButtonColor: '#47A6AC',";

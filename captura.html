@@ -191,10 +191,13 @@
 <script language="JavaScript">
   function take_snapshot1() {
     if(validateForm() && validarEmail(document.forms["Form"]["nombre_img"].value)){
+      var audio = new Audio('media/camera.wav');
+      audio.play();
       document.getElementById('carga').style.display = 'block';
       swal({
         title: 'Cargando',
         text: 'Tu imagen se esta cargando',
+        allowOutsideClick: false,
         onOpen: function () {
           swal.showLoading()
         }
