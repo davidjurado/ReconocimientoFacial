@@ -47,32 +47,7 @@
     </nav>
     </div>
     <section>
-      <!--<div class="container">
-        <div class="carousel carousel-slider center" data-indicators="true">
-          <div class="carousel-fixed-item center">
-            <a href="#tcmodal" class="btn waves-effect white grey-text darken-text-2 tctrigger">Más información</a>
-          </div>
-          <div class="carousel-item white-text" href="#" style="background-image: url(https://listen.statestreet.com/content/dam/ssblog/inline/face.gif);background-size: 100% 100%;
-          height:100%;width:100%;margin: auto;position: absolute;top:0;bottom:0;left:0;right:0;">
-            <h2>Autenticación mixta</h2>
-              <p class="white-text">Usando la combinación de metodos biometricos faciales y de voz, esposible aumentar el grado de seguridad con la autenticación mixta</p>
-          </div>
-          <div class="carousel-item white-text" href="#" style="background-image: url(https://s3.amazonaws.com/kairos-media/Kairos-Face-Recognition-Header.jpg);background-size:100%100%;
-          height:100%;width:100%;margin: auto;position: absolute;top:0;bottom:0;left:0;right:0;">
-            <h2>Biometria facial</h2>
-              <p class="white-text">Sonrié y listo, basta con tomar una foto para que ingreses a la plataforma</p>
-          </div>
-          <div class="carousel-item white-text" href="#" style="background-image: url(http://www.dataversity.net/wp-content/uploads/2015/09/Voice-Processing.jpg?x23053);background-size:100%100%;height:100%;width:100%;margin: auto;position: absolute;top:0;bottom:0;left:0;right:0;">
-              <h2>Biometria vocal</h2>
-              <p class="white-text">"Mi voz es mi contraseña" es la frase que dirás siempre que quieras autenticante sin necesidad de contraseñas</p>
-          </div>
-        </div>
-       </div>
-      <script type="text/javascript">
-          $(document).ready(function(){
-            $('.carousel.carousel-slider').carousel({full_width: true});
-          });
-      </script>-->
+ 
       <div id="carga" class="progress" style="display:none">
         <div  class="indeterminate"></div>
       </div>
@@ -82,35 +57,42 @@
         <p>A continuación podrá registrar su huella facial con solo tomar una foto, para lograr esto es necesario que se habilite la camara y cuente con buen iluminación, recuerde no mover la cabeza a la hora de presionar el botón registrar y mantenga la cara de frente hacia la camara.</p>
       </div>
     </section>
+      <section>
+    <div class="container row">
+      <div id="my_camera" class="responsive-video col s12 m6 l6">
+        <script language="JavaScript">
+          Webcam.set({
+            width: 300,
+            height: 230,
+            dest_width: 600,
+            dest_height: 460,
+            image_format: 'jpeg',
+            jpeg_quality: 100
+          });
+          Webcam.attach( '#my_camera' );
+        </script>
+          </div>
+       <div class="col s12 m6 l6">
+         <h2 class="center teal-text">
+           <i id="c3" class="material-icons large" style="display:none">filter_3</i>
+            <i id="c2" class="material-icons large" style="display:none">filter_2</i>
+            <i id="c1" class="material-icons large" style="display:none">mood</i>
+         </h2>
+        </div> 
+    </div>
+  </section>
     <section class="inquiry">
       <div class="container row">
         <form id="myform" name="Form" method="post" action="saveawsimage.php">
-          <div class="row ">
-            <div class="col s12 m12 l6">
-              <div id="my_camera" class="responsive-video">
-                <script language="JavaScript">
-                  Webcam.set({
-                    width: 300,
-                    height: 230,
-                    dest_width: 600,
-                    dest_height: 460,
-                    image_format: 'jpeg',
-                    jpeg_quality: 100
-                  });
-                  Webcam.attach( '#my_camera' );
-                </script>
-              </div>
-            </div>
-            <div class="input-field col s12 m12 l6">
+            <div class="input-field col s12 m12 l12">
               <input name="nombre_img" id="email" type="email" required onkeydown="if (event.keyCode == 13) return false" />
               <label for="email">Email</label>
             </div>
-            <div class="col s12 m12 l6">
-              <button class="btn red waves-effect waves-light" type="button"  onClick="take_snapshot1()">Registrar
+            <div class="col s12 m12 l12">
+              <button id="boton" class="btn red waves-effect waves-light" type="button"  onClick="take_snapshot1()">Registrar
                 <i class="material-icons right">add_a_photo</i>
               </button>
             </div>
-          </div>
           <input id="mydata" type="hidden" name="mydata" value=""/>
         </form>
       </div>
@@ -191,8 +173,24 @@
 <script language="JavaScript">
   function take_snapshot1() {
     if(validateForm() && validarEmail(document.forms["Form"]["nombre_img"].value)){
-      var audio = new Audio('media/camera.wav');
-      audio.play();
+        document.getElementById('boton').disabled = true;
+      var cameraSound = new Audio('media/camera.wav');
+      var beepSound = new Audio('media/beep.wav');
+      setTimeout(function(){beepSound.play();
+      document.getElementById('c3').style.display = 'block';
+      },1);
+      setTimeout(function(){beepSound.play();
+      document.getElementById('c2').style.display = 'block';
+      document.getElementById('c3').style.display = 'none';
+      },1000);
+      setTimeout(function(){beepSound.play();
+       document.getElementById('c1').style.display = 'block';
+      document.getElementById('c2').style.display = 'none';
+      },2000);
+      setTimeout(function(){cameraSound.play();},3000);
+  
+      setTimeout(function(){
+
       document.getElementById('carga').style.display = 'block';
       swal({
         title: 'Cargando',
@@ -202,11 +200,14 @@
           swal.showLoading()
         }
       }).then(function () {},)
-      Webcam.snap( function(data_uri) {
-        var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
-        document.getElementById('mydata').value = raw_image_data;
-        document.getElementById('myform').submit();
-      } );
+            Webcam.snap( function(data_uri) {
+              var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
+              document.getElementById('mydata').value = raw_image_data;
+              document.getElementById('myform').submit();
+            } );
+
+      },3000)
+
     }
   }
 </script>

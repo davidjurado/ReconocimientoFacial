@@ -57,7 +57,7 @@
 	</section>
 	<section>
 		<div class="container row">
-			<div id="my_camera" class="responsive-video col s12">
+			<div id="my_camera" class="responsive-video col s12 m6 l6">
 				<script language="JavaScript">
 					Webcam.set({
 						width: 300,
@@ -69,7 +69,14 @@
 					});
 					Webcam.attach( '#my_camera' );
 				</script>
-			</div>
+          </div>
+			 <div class="col s12 m6 l6">
+         <h2 class="center teal-text">
+           <i id="c3" class="material-icons large" style="display:none">filter_3</i>
+            <i id="c2" class="material-icons large" style="display:none">filter_2</i>
+            <i id="c1" class="material-icons large" style="display:none">mood</i>
+         </h2>
+        </div> 
 		</div>
 	</section>
 	<section class="inquiry">
@@ -95,7 +102,7 @@
         <section>
 				<div class="row">
 					<div class="col s12 m4">
-						<button class="btn red waves-effect waves-light" type="button"  onClick="take_snapshot1()">Ingresar
+						<button id="boton" class="btn red waves-effect waves-light" type="button"  onClick="take_snapshot1()">Ingresar
 							<i class="material-icons right">photo_camera</i>
 						</button>
 					</div>
@@ -139,6 +146,7 @@
   </footer>
 </body>
 </html>
+
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -188,22 +196,42 @@
 <script language="JavaScript">
 	function take_snapshot1() {
 		if(validateForm()!=false && validarEmail(document.forms["Form"]["nombre_img"].value)!=false){
-      var audio = new Audio('media/camera.wav');
-      audio.play();
-			document.getElementById('carga').style.display = 'block';
-			swal({
-				title: 'Cargando',
-				text: 'Tu imagen se esta cargando',
+      document.getElementById('boton').disabled = true;
+      var cameraSound = new Audio('media/camera.wav');
+      var beepSound = new Audio('media/beep.wav');
+      setTimeout(function(){beepSound.play();
+      document.getElementById('c3').style.display = 'block';
+      },1);
+      setTimeout(function(){beepSound.play();
+      document.getElementById('c2').style.display = 'block';
+      document.getElementById('c3').style.display = 'none';
+      },1000);
+      setTimeout(function(){beepSound.play();
+       document.getElementById('c1').style.display = 'block';
+      document.getElementById('c2').style.display = 'none';
+      },2000);
+      setTimeout(function(){cameraSound.play();},3000);
+  
+      setTimeout(function(){
+
+      document.getElementById('carga').style.display = 'block';
+      swal({
+        title: 'Cargando',
+        text: 'Tu imagen se esta cargando',
         allowOutsideClick: false,
-				onOpen: function () {
-					swal.showLoading()
-				}
-			}).then(function () {},)
-						Webcam.snap( function(data_uri) {
-							var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
-							document.getElementById('mydata').value = raw_image_data;
-							document.getElementById('myform').submit();
-						} );
+        onOpen: function () {
+          swal.showLoading()
+        }
+      }).then(function () {},)
+            Webcam.snap( function(data_uri) {
+              var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
+              document.getElementById('mydata').value = raw_image_data;
+              document.getElementById('myform').submit();
+            } );
+
+      },3000)
+
+
 					}
 				}
 </script>

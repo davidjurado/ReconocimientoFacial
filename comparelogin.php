@@ -105,7 +105,7 @@ use Aws\S3\Exception\S3Exception;
             $bb=json_encode($fa);
 
             $posemsg="";
-            $msg="La imagen no corresponde a la misma persona";
+            $msg="";
             if($caras==1)
             {
 
@@ -161,6 +161,7 @@ use Aws\S3\Exception\S3Exception;
                                             else
                                             {
                                                 $a=null;
+                                                      $msg="La imagen no corresponde a la misma persona";
                                             }
 
                                               $b=json_encode($a);

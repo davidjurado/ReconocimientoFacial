@@ -116,8 +116,14 @@
     fclose($gestor);
     if($caras==1)
     {
-      echo "<script language='javascript'>"; 
-      echo "swal(
+      $validarpose=false;
+       $valMin=-5;
+       $valMax=5;
+       if($face['FaceDetails'][0]['Pose']['Yaw']>=$valMin && $face['FaceDetails'][0]['Pose']['Pitch']>=$valMin &&  $face['FaceDetails'][0]['Pose']['Roll']>=$valMin && $face['FaceDetails'][0]['Pose']['Yaw']<=$valMax && $face['FaceDetails'][0]['Pose']['Pitch']<=$valMax &&  $face['FaceDetails'][0]['Pose']['Roll']<=$valMax){
+            $validarpose=true;
+
+              echo "<script language='javascript'>"; 
+            echo "swal(
         'Rostro detectado',
         'A continiación se muestran los resultados',
         'success'
@@ -179,10 +185,34 @@ function changeImage() {
          </div>    
       </section>     
       ';
+
+       }
+       else{
+        unlink($path);
+        echo "<script language='javascript'>"; 
+        echo "swal({
+        title: 'Es rostro no está centrado',
+        imageUrl: 'data:image/jpeg;base64,".$imageData."',
+        type: 'error',
+        confirmButtonColor: '#47A6AC',";
+        $s3->deleteMatchingObjects($config['s3']['bucket'],"uploads/{$final_name}");
+        echo "
+        confirmButtonText: 'intentar de nuevo!',
+        allowOutsideClick: false
+      }).then(function () {
+        redireccionarPagina();
+      })"; 
+      echo "</script>";
+
+       }
+
+
     }
     else
     {
       unlink($path);
+      $s3->deleteMatchingObjects($config['s3']['bucket'],"uploads/{$final_name}");
+
       if($caras>1)
       {
         echo "<script language='javascript'>"; 
@@ -191,7 +221,7 @@ function changeImage() {
         imageUrl: 'data:image/jpeg;base64,".$imageData."',
         type: 'error',
         confirmButtonColor: '#47A6AC',";
-        $s3->deleteMatchingObjects($config['s3']['bucket'],"uploads/{$final_name}");
+    
         echo "
         confirmButtonText: 'intentar de nuevo!',
         allowOutsideClick: false
@@ -208,7 +238,6 @@ function changeImage() {
         imageUrl: 'data:image/jpeg;base64,".$imageData."',
         type: 'error',
         confirmButtonColor: '#47A6AC',";
-        $s3->deleteMatchingObjects($config['s3']['bucket'],"uploads/{$final_name}");
         echo "
         confirmButtonText: 'intentar de nuevo!',
         allowOutsideClick: false
@@ -222,7 +251,7 @@ function changeImage() {
   catch (S3Exception $e) {
     echo $e->getMessage() . "\n";
   }
-  if($caras==1)
+  if($caras==1 && $validarpose)
   {
     echo '
     <canvas id="myCanvas" width="600" height="460" style="display:none">
