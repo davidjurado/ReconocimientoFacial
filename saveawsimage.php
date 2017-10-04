@@ -52,6 +52,7 @@
   </script>
 
   <?php
+  set_time_limit(0);
   require './app/start.php';
   use Aws\S3\Exception\S3Exception;
   $id_img=  $_POST["nombre_img"];
@@ -103,17 +104,7 @@
     $b=json_encode($a);
     $file='FaceDetails.json';
     file_put_contents($file, $d);
-    $labels = $rek->detectLabels([
-      'Image' => [
-        'S3Object' => [
-          'Bucket' => $config['s3']['bucket'],
-          'Name' => "uploads/{$final_name}",
-        ],
-      ],
-    ]);
-    $l=json_encode($labels['Labels']);
-    $file='Labels.json';
-    file_put_contents($file, $l);
+    
     fclose($gestor);
     if($caras==1)
     {

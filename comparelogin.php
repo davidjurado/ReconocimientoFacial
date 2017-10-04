@@ -52,6 +52,7 @@
   </script>
 
 <?php
+set_time_limit(0);
 require './app/start.php';
 use Aws\S3\Exception\S3Exception;
     $id_img=  $_POST["nombre_img"];
