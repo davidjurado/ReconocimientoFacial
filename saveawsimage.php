@@ -17,7 +17,7 @@
   <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
   <!-- First, include the Webcam.js JavaScript Library -->
-  <script type="text/javascript" src="webcam.js"></script>
+  <script type="text/javascript" src="js/webcam.js"></script>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
@@ -82,14 +82,14 @@
     $enlace=$result["@metadata"]["effectiveUri"];
     $imageData = base64_encode(file_get_contents($enlace));
     $face=$rek->detectFaces([
-      'Image' => [
-        'S3Object' => [ 
-          'Bucket' => $config['s3']['bucket'],
-          'Name' => "uploads/{$final_name}",
-        ],
-      ],
-      'Attributes'=>["ALL"],
-    ]);
+                'Image' => [
+                    'S3Object' => [ 
+                        'Bucket' => $config['s3']['bucket'],
+                        'Name' => "uploads/{$final_name}",
+                    ],     
+                ],
+                'Attributes'=>["ALL"],
+            ]);
     $c=$face['FaceDetails'];
     $caras=count($c);
     $d=json_encode($c);
@@ -102,8 +102,21 @@
       $a=null;
     }
     $b=json_encode($a);
-    $file='FaceDetails.json';
+    $file='json/FaceDetails.json';
     file_put_contents($file, $d);
+
+
+    $labels = $rek->detectLabels([
+      'Image' => [
+        'S3Object' => [
+          'Bucket' => $config['s3']['bucket'],
+          'Name' => "uploads/{$final_name}",
+        ],
+      ],
+    ]);
+    $l=json_encode($labels['Labels']);
+    $file='json/Labels.json';
+    file_put_contents($file, $l);
     
     fclose($gestor);
     if($caras==1)
@@ -168,8 +181,8 @@ function changeImage() {
               <div class="center-align" id="test4">Confidencialidad de detección: '.$b." %".'</div>
                 <div class="center-align" id="test5">
                   <img style="display:none" id="df-img" class="responsive-img materialboxed" data-caption="se muestran los landmarks" width="150" src="" style="margin: auto;position: relative;top:0;bottom:0;left:0;right:0;">
-                  <a href="FaceDetails.json" target="_blank" >Detalles faciales</a></div>
-                <div class="center-align" id="test6"><a href="Labels.json" target="_blank" >Etiquetas</a></div>
+                  <a href="json/FaceDetails.json" target="_blank" >Detalles faciales</a></div>
+                <div class="center-align" id="test6"><a href="json/Labels.json" target="_blank" >Etiquetas</a></div>
               </div>
             </div>
           </div>

@@ -17,7 +17,7 @@
   <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
   <!-- First, include the Webcam.js JavaScript Library -->
-  <script type="text/javascript" src="webcam.js"></script>
+  <script type="text/javascript" src="js/webcam.js"></script>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
@@ -225,7 +225,7 @@ use Aws\S3\Exception\S3Exception;
 
                         //echo "Confidencialidad FaceDetection: ";
                         //echo $bb." %";
-                        $file='FaceDetails.json';
+                        $file='json/FaceDetails.json';
                         file_put_contents($file, $dd);
                         //echo "<a href='FaceDetails.json' target='_blank' >Detalles faciales imagen actual</a>";
                         $labels = $rek->detectLabels([
@@ -237,10 +237,10 @@ use Aws\S3\Exception\S3Exception;
                             ],
                         ]);
                         $l=json_encode($labels['Labels']);
-                        $file='Labels.json';
+                        $file='json/Labels.json';
                         file_put_contents($file, $l);
                         //echo "<a href='Labels.json' target='_blank' >Etiquetas</a>";
-                        $file='FaceDetails_target.json';
+                        $file='json/FaceDetails_target.json';
                         file_put_contents($file, $d);
                         //echo "<a href='FaceDetails_target.json' target='_blank' >Detalles faciales imagen objetivo</a>";
                         $imageData = base64_encode(file_get_contents($enlace));
@@ -294,8 +294,8 @@ function changeImage() {
                     <div class="center-align" id="test4">Confidencialidad de detección del rostro: '.$bb." %".'</div>
                         <div class="center-align" id="test5">
                             <img style="display:none" id="df-img" class="responsive-img materialboxed" data-caption="se muestran los landmarks" width="150" src="" style="margin: auto;position: relative;top:0;bottom:0;left:0;right:0;">
-                            <a href="FaceDetails.json" target="_blank" >Detalles faciales</a></div>
-                    <div class="center-align" id="test6"><a href="Labels.json" target="_blank" >Etiquetas</a></div>
+                            <a href="json/FaceDetails.json" target="_blank" >Detalles faciales</a></div>
+                    <div class="center-align" id="test6"><a href="json/Labels.json" target="_blank" >Etiquetas</a></div>
                 </div>
             </div>
               </div>
@@ -319,7 +319,7 @@ function changeImage() {
                     <div class="center-align" id="test7">Similitud para la Autenticación: '.$b." %".'</div>
                         <div class="center-align" id="test8">';
                             //<img id="df-img2" class="responsive-img materialboxed" data-caption="se muestran los landmarks" width="150" src="">
-                           echo '<a href="FaceDetails_target.json" target="_blank" >Detalles faciales</a></div>
+                           echo '<a href="json/FaceDetails_target.json" target="_blank" >Detalles faciales</a></div>
                         </div>
                     </div>
                 </div>

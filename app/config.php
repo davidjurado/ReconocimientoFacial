@@ -1,6 +1,7 @@
 <?php
 
 $key='';
+$secret='';
 $bucket='davidferd';
 $region='us-west-2';
 return[
