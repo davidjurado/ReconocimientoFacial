@@ -374,134 +374,6 @@ function changeImage() {
       ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][4]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][4]['Y']).', 1, 0, 2 * Math.PI);
       ctx.stroke();
 
-
-      //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][7]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][7]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
-      //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][8]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][8]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
-      //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][9]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][9]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
-      //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][10]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][10]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
-      //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][11]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][11]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
-      //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][12]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][12]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
-      //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][13]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][13]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
-      //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][14]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][14]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
-      //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][15]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][15]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
-       //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][16]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][16]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
- //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][17]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][17]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
- //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][18]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][18]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
- //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][19]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][19]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
- //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][20]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][20]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
- //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][21]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][21]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
- //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][22]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][22]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
- //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][23]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][23]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
- //boca2
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "#1e88e5";
-      ctx.arc(600*'.json_encode($face['FaceDetails'][0]['Landmarks'][24]['X']).', 460*'.json_encode($face['FaceDetails'][0]['Landmarks'][24]['Y']).', 1, 0, 2 * Math.PI);
-      ctx.stroke();
-
-
 //caja
       ctx.beginPath();
       ctx.lineWidth = "3";
@@ -597,7 +469,7 @@ function changeImage() {
                 echo "</script>";
             }
             ?>
-    <footer class="page-footer teal">
+    <footer class="page-footer indigo darken-4">
     <div class="footer-copyright">
       <div class="container">
       &copy;2017 Universidad Industrial de Santander

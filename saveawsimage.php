@@ -451,7 +451,7 @@ function changeImage() {
                 echo "</script>";
   }
   ?>
-    <footer class="page-footer teal">
+    <footer class="page-footer indigo darken-4">
     <div class="footer-copyright">
       <div class="container">
       &copy;2017 Universidad Industrial de Santander

@@ -11,11 +11,11 @@ $config =require('config.php');
 
 
 $rek= new Aws\Rekognition\RekognitionClient([
-    'version' => 'latest',
-    'region' => 'us-west-2',
+    'version' => $config["s3"]["version"],
+    'region' => $config["s3"]["region"],
     'credentials' => [
-        'key' => '',
-        'secret' => ''
+        'key' => $config["s3"]["key"],
+        'secret' => $config["s3"]["secret"]
     ],
     'http'    => [
         'verify' => false
@@ -25,11 +25,11 @@ $rek= new Aws\Rekognition\RekognitionClient([
 
 
 $s3=new Aws\S3\S3Client([
-     'version' => 'latest',
-    'region' => 'us-west-2',
+     'version' => $config["s3"]["version"],
+    'region' => $config["s3"]["region"],
     'credentials' => [
-        'key' => '',
-        'secret' => ''
+        'key' => $config["s3"]["key"],
+        'secret' => $config["s3"]["secret"]
     ],
     'http'    => ['decode_content' => false],
     'scheme' => 'http',
